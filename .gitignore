@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+#VisualStudio2017/2019 .vs File
+*.vs
