@@ -1,0 +1,15 @@
+Assimpを使用するためのプロジェクト プロパティの設定(DirectXTexも含む)
+※ソリューションが含まれるフォルダと同じ階層にAssimpフォルダとDirectXTexフォルダを配置した場合。
+
+構成プロパティ→C/C++→全般
+追加のインクルードディレクトリ
+..\..\DirectXTex;..\..\Assimp\include
+
+構成プロパティ→リンカー→全般
+追加のライブラリディレクトリ
+..\..\DirectXTex\$(PlatformTarget)\$(Configuration);..\..\Assimp\lib\$(PlatformTarget)
+
+
+Assimp使用時の注意点
+フォルダ名やファイル名に日本語が含まれると読み込みに失敗することが多い。
+半角英数で構成すること(assimp_viewer.exeで読み込めればOK)。
