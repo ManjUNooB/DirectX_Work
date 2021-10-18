@@ -13,3 +13,7 @@ Assimpを使用するためのプロジェクト プロパティの設定(DirectXTexも含む)
 Assimp使用時の注意点
 フォルダ名やファイル名に日本語が含まれると読み込みに失敗することが多い。
 半角英数で構成すること(assimp_viewer.exeで読み込めればOK)。
+※assimp_viewer.exeが動かない人は、directx_Jun2010_redist.exeを実行して
+  適当なフォルダを指定&作成し(例>c:\dxtmp)、そのフォルダ内のDXSETUP.EXE
+  を実行してインストールしてみよう(インストール後はフォルダは不要なので
+  削除)。

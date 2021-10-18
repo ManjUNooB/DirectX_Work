@@ -1,0 +1,19 @@
+﻿  compilation object save succeeded; see E:\HAL3年\個人製作\GitHub\DirectX_Works\DirectXProject_from_GM31\DX11Game\data\shader\AssimpPixel.cso
+  compilation object save succeeded; see E:\HAL3年\個人製作\GitHub\DirectX_Works\DirectXProject_from_GM31\DX11Game\data\shader\AssimpVertex.cso
+  compilation object save succeeded; see E:\HAL3年\個人製作\GitHub\DirectX_Works\DirectXProject_from_GM31\DX11Game\data\shader\Pixel.cso
+  compilation object save succeeded; see E:\HAL3年\個人製作\GitHub\DirectX_Works\DirectXProject_from_GM31\DX11Game\data\shader\Pixel2D.cso
+  compilation object save succeeded; see E:\HAL3年\個人製作\GitHub\DirectX_Works\DirectXProject_from_GM31\DX11Game\data\shader\Vertex.cso
+  compilation object save succeeded; see E:\HAL3年\個人製作\GitHub\DirectX_Works\DirectXProject_from_GM31\DX11Game\data\shader\Vertex2D.cso
+  AssimpModel.cpp
+  Camera.cpp
+  debugproc.cpp
+  field.cpp
+  input.cpp
+  Light.cpp
+  main.cpp
+  mesh.cpp
+  model.cpp
+  polygon.cpp
+  Shader.cpp
+  Texture.cpp
+LINK : fatal error LNK1104: ファイル 'assimp-vc141-mt.lib' を開くことができません。
