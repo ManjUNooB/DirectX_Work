@@ -28,6 +28,12 @@
     <Filter Include="リソース ファイル\Shader">
       <UniqueIdentifier>{34c39e7a-dfd0-4f2f-9f15-193076a230cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\System\Graphics">
+      <UniqueIdentifier>{2d6f6502-b52e-47f7-970e-ba689042f55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System\Graphics">
+      <UniqueIdentifier>{5cb90e4f-3851-4883-9351-1ff03048ab51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssimpModel.cpp">
@@ -65,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>ソース ファイル\App</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX11.cpp">
+      <Filter>ソース ファイル\System\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="model.h">
       <Filter>ヘッダー ファイル\App</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX11.h">
+      <Filter>ヘッダー ファイル\System\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

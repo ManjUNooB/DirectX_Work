@@ -162,6 +162,7 @@
     <ClCompile Include="AssimpModel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="debugproc.cpp" />
+    <ClCompile Include="DirectX11.cpp" />
     <ClCompile Include="field.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="AssimpModel.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="debugproc.h" />
+    <ClInclude Include="DirectX11.h" />
     <ClInclude Include="field.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="Light.h" />
