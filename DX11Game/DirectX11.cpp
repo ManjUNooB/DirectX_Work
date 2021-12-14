@@ -20,7 +20,7 @@ DirectX11::~DirectX11()
 HRESULT DirectX11::InitDX(HWND hwnd, UINT width, UINT height, bool fullscreen)
 {
 	//	正誤判定初期化
-	HRESULT hr = E_FAIL;
+	HRESULT hr = S_OK;
 
 	//	デバイス・スワップチェーンの作成
 	DXGI_SWAP_CHAIN_DESC scd;
@@ -60,9 +60,55 @@ HRESULT DirectX11::InitDX(HWND hwnd, UINT width, UINT height, bool fullscreen)
 		return hr;
 	}
 
+	//	ラスタライズ設定
+	D3D11_RASTERIZER_DESC rd;
+	ZeroMemory(&rd, sizeof(rd));
+	rd.FillMode = D3D11_FILL_SOLID;
+	rd.CullMode = D3D11_CULL_NONE;		// カリング無し(両面描画)
+	m_pDevice->CreateRasterizerState(&rd, &m_pRs[0]);
+	rd.CullMode = D3D11_CULL_FRONT;		//	前面カリング(裏面描画)
+	m_pDevice->CreateRasterizerState(&rd, &m_pRs[1]);
+	rd.CullMode = D3D11_CULL_BACK;		//	背面カリング(表面描画)
+	m_pDevice->CreateRasterizerState(&rd, &m_pRs[2]);
+
+	//	ブレンドステート作成
+	D3D11_BLEND_DESC BlendDesc;
+	ZeroMemory(&BlendDesc, sizeof(BlendDesc));
+	BlendDesc.AlphaToCoverageEnable = FALSE;
+	BlendDesc.IndependentBlendEnable = FALSE;
+	BlendDesc.RenderTarget[0].BlendEnable = FALSE;
+	BlendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	BlendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	BlendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	BlendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	BlendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	m_pDevice->CreateBlendState(&BlendDesc, &m_pBs[0]);
+
+	// ブレンド ステート生成 (アルファ ブレンド用)
+	//BlendDesc.AlphaToCoverageEnable = TRUE;
+	BlendDesc.RenderTarget[0].BlendEnable = TRUE;
+	m_pDevice->CreateBlendState(&BlendDesc, &m_pBs[1]);
+	// ブレンド ステート生成 (加算合成用)
+	BlendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	m_pDevice->CreateBlendState(&BlendDesc, &m_pBs[2]);
+	// ブレンド ステート生成 (減算合成用)
+	BlendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_REV_SUBTRACT;
+	m_pDevice->CreateBlendState(&BlendDesc, &m_pBs[3]);
+	SetBlendState(BS_ALPHABLEND);
+
+	//	深度ステンシルステート作成
+	CD3D11_DEFAULT def;
+	CD3D11_DEPTH_STENCIL_DESC dsd(def);
+	dsd.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	m_pDevice->CreateDepthStencilState(&dsd, &m_pDSS[0]);
+	CD3D11_DEPTH_STENCIL_DESC dsd2(def);
+	dsd2.DepthEnable = FALSE;
+	m_pDevice->CreateDepthStencilState(&dsd2, &m_pDSS[1]);
 
 
-	return E_NOTIMPL;
+	return hr;
 }
 
 void DirectX11::UninitDX()
@@ -77,6 +123,9 @@ void DirectX11::DrawEndDX()
 {
 }
 
+//--------------------------------------//
+//	バックバッファ作成
+//--------------------------------------//
 HRESULT DirectX11::CreateBackBuffer(UINT width,UINT height)
 {	
 	HRESULT hr = E_FAIL;
@@ -131,13 +180,30 @@ HRESULT DirectX11::CreateBackBuffer(UINT width,UINT height)
 	return S_OK;
 }
 
+//--------------------------------------//
+//	デバイス取得
+//--------------------------------------//
 ID3D11Device* DirectX11::GetDevice()
 {
 	return m_pDevice;
 }
 
+//--------------------------------------//
+//	デバイスコンテキスト取得
+//--------------------------------------//
 ID3D11DeviceContext* DirectX11::GetContext()
 {
 	return m_pContext;
+}
+
+//--------------------------------------//
+//	ブレンドステートの設定
+//--------------------------------------//
+void DirectX11::SetBlendState(int nBlendState)
+{
+	if (nBlendState >= 0 && nBlendState < MAX_BLENDSTATE) {
+		float blendFactor[4] = { 0.0f,0.0f,0.0f,0.0f };
+		m_pContext->OMSetBlendState(m_pBs[nBlendState],blendFactor,0xffffffff);
+	}
 }
 

@@ -54,6 +54,7 @@ public:
 	HRESULT CreateBackBuffer(UINT width,UINT height);
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetContext();
+	void SetBlendState(int nBlendState);
 
 private:
 	ID3D11Device* m_pDevice;						//	デバイス
