@@ -52,8 +52,12 @@ public:
 	void DrawEndDX();
 
 	HRESULT CreateBackBuffer(UINT width,UINT height);
+	void ReleaseBackBuffer();
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetContext();
+	ID3D11RenderTargetView* GetRenderTargetView();
+	ID3D11DepthStencilView* GetDepthStencilView();
+	IDXGISwapChain* GetSwapChain();
 	void SetBlendState(int nBlendState);
 
 private:

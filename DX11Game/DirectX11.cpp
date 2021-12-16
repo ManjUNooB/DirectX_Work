@@ -7,12 +7,10 @@ constexpr int RefreshRate_Denominator = 1;
 constexpr int SampleDesc_Count = 1;
 constexpr int SampleDesc_Quility = 0;
 
-DirectX11::DirectX11()
-{
+DirectX11::DirectX11(){
 }
 
-DirectX11::~DirectX11()
-{
+DirectX11::~DirectX11(){
 }
 
 
@@ -113,6 +111,32 @@ HRESULT DirectX11::InitDX(HWND hwnd, UINT width, UINT height, bool fullscreen)
 
 void DirectX11::UninitDX()
 {
+	//	深度ステンシルステート解放
+	for (int i = 0; i < _countof(m_pDSS); ++i) {
+		SAFE_RELEASE(m_pDSS[i]);
+	}
+
+	//	ブレンドステート解放
+	for (int i = 0; i < MAX_BLENDSTATE; ++i) {
+		SAFE_RELEASE(m_pBs[i]);
+	}
+
+	//	ラスタライザステート解放
+	for (int i = 0; i < MAX_CULLMODE; ++i) {
+		SAFE_RELEASE(m_pRs[i]);
+	}
+
+	//	バックバッファ解放
+	ReleaseBackBuffer();
+
+	//	スワップチェーン解放
+	SAFE_RELEASE(m_pSwapChain);
+
+	//	デバイスコンテキスト解放
+	SAFE_RELEASE(m_pContext);
+
+	//	デバイス解放
+	SAFE_RELEASE(m_pDevice);
 }
 
 void DirectX11::DrawBeginDX()
@@ -181,6 +205,20 @@ HRESULT DirectX11::CreateBackBuffer(UINT width,UINT height)
 }
 
 //--------------------------------------//
+//	バックバッファ解放
+//--------------------------------------//
+void DirectX11::ReleaseBackBuffer()
+{
+	if (m_pContext) {
+		m_pContext->OMSetRenderTargets(0, nullptr, nullptr);
+	}
+	SAFE_RELEASE(m_pDepthStencilView);
+	SAFE_RELEASE(m_pDepthStencilTexture);
+	SAFE_RELEASE(m_pRenderTargetView);
+}
+
+
+//--------------------------------------//
 //	デバイス取得
 //--------------------------------------//
 ID3D11Device* DirectX11::GetDevice()
@@ -197,6 +235,31 @@ ID3D11DeviceContext* DirectX11::GetContext()
 }
 
 //--------------------------------------//
+//	フレームバッファ取得
+//--------------------------------------//
+ID3D11RenderTargetView* DirectX11::GetRenderTargetView()
+{
+	return m_pRenderTargetView;
+}
+
+//--------------------------------------//
+//	Zバッファ取得
+//--------------------------------------//
+ID3D11DepthStencilView* DirectX11::GetDepthStencilView()
+{
+	return m_pDepthStencilView;
+}
+
+//--------------------------------------//
+//	スワップチェーンの取得
+//--------------------------------------//
+IDXGISwapChain* DirectX11::GetSwapChain()
+{
+	return m_pSwapChain;
+}
+
+
+//--------------------------------------//
 //	ブレンドステートの設定
 //--------------------------------------//
 void DirectX11::SetBlendState(int nBlendState)
@@ -206,4 +269,3 @@ void DirectX11::SetBlendState(int nBlendState)
 		m_pContext->OMSetBlendState(m_pBs[nBlendState],blendFactor,0xffffffff);
 	}
 }
-

@@ -2,27 +2,27 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\DX11GameD.exe</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\DX11GameD.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\data\shader\AssimpPixel.cso</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\data\shader\AssimpPixel.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\data\shader\AssimpVertex.cso</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\data\shader\AssimpVertex.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\data\shader\Pixel.cso</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\data\shader\Pixel.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\data\shader\Pixel2D.cso</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\data\shader\Pixel2D.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\data\shader\Vertex.cso</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\data\shader\Vertex.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>E:\HAL3年\個人製作_GitHub\GitHub\DirectX_Works\DX11Game\data\shader\Vertex2D.cso</FullPath>
+      <FullPath>C:\Users\ryuzi\Desktop\HAL名古屋3年\趣味_練習_個人製作\GitHub\就職作品_ryugahal12\DX11Game\data\shader\Vertex2D.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

@@ -12,11 +12,12 @@
 #include "debugproc.h"
 #include "mesh.h"
 #include "field.h"
+#include "DirectX11.h"
 
 //-------- ライブラリのリンク
 #pragma comment(lib, "winmm")
 #pragma comment(lib, "imm32")
-#pragma comment(lib, "d3d11")
+//#pragma comment(lib, "d3d11")
 
 //*****************************************************************************
 // マクロ定義
@@ -40,7 +41,7 @@ void Draw(void);
 HWND						g_hWnd;					// メイン ウィンドウ ハンドル
 HINSTANCE					g_hInst;				// インスタンス ハンドル
 
-ID3D11Device*				g_pDevice;				// デバイス
+/*ID3D11Device* g_pDevice;				// デバイス
 ID3D11DeviceContext*		g_pDeviceContext;		// デバイス コンテキスト
 IDXGISwapChain*				g_pSwapChain;			// スワップチェーン
 ID3D11RenderTargetView*		g_pRenderTargetView;	// フレームバッファ
@@ -50,11 +51,14 @@ UINT						g_uSyncInterval = 0;	// 垂直同期 (0:無, 1:有)
 ID3D11RasterizerState*		g_pRs[MAX_CULLMODE];	// ラスタライザ ステート
 ID3D11BlendState*			g_pBlendState[MAX_BLENDSTATE];// ブレンド ステート
 ID3D11DepthStencilState*	g_pDSS[2];				// Z/ステンシル ステート
+*/
 
 int							g_nCountFPS;			// FPSカウンタ
 
 CCamera						g_camera;				// カメラ
 CLight						g_light;				// 光源
+
+DirectX11 DXobj;
 
 //=============================================================================
 // メイン関数
@@ -231,7 +235,7 @@ int OnCreate(HWND hWnd, LPCREATESTRUCT lpcs)
 //=============================================================================
 // バックバッファ生成
 //=============================================================================
-HRESULT CreateBackBuffer(void)
+/*HRESULT CreateBackBuffer(void)
 {
 	// レンダーターゲットビュー生成
 	ID3D11Texture2D* pBackBuffer = nullptr;
@@ -282,6 +286,7 @@ HRESULT CreateBackBuffer(void)
 
 	return S_OK;
 }
+*/
 
 //=============================================================================
 // 初期化処理
@@ -290,7 +295,7 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 {
 	HRESULT hr = S_OK;
 
-	// デバイス、スワップチェーンの作成
+	/*// デバイス、スワップチェーンの作成
 	DXGI_SWAP_CHAIN_DESC scd;
 	ZeroMemory(&scd, sizeof(scd));
 	scd.BufferCount = 1;
@@ -374,9 +379,13 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 	CD3D11_DEPTH_STENCIL_DESC dsd2(def);
 	dsd2.DepthEnable = FALSE;
 	g_pDevice->CreateDepthStencilState(&dsd2, &g_pDSS[1]);
+	*/
+	
+	//	DirectX11初期化
+	DXobj.InitDX(g_hWnd,SCREEN_WIDTH,SCREEN_HEIGHT);
 
 	// ポリゴン表示初期化
-	hr = InitPolygon(g_pDevice);
+	hr = InitPolygon(DXobj.GetDevice());
 	if (FAILED(hr))
 		return hr;
 
@@ -416,7 +425,7 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 	return hr;
 }
 
-//=============================================================================
+/*//=============================================================================
 // バックバッファ解放
 //=============================================================================
 void ReleaseBackBuffer()
@@ -428,6 +437,7 @@ void ReleaseBackBuffer()
 	SAFE_RELEASE(g_pDepthStencilTexture);
 	SAFE_RELEASE(g_pRenderTargetView);
 }
+*/
 
 //=============================================================================
 // 終了処理
@@ -518,8 +528,9 @@ void Draw(void)
 {
 	// バックバッファ＆Ｚバッファのクリア
 	float ClearColor[4] = { 0.117647f, 0.254902f, 0.352941f, 1.0f };
-	g_pDeviceContext->ClearRenderTargetView(g_pRenderTargetView, ClearColor);
-	g_pDeviceContext->ClearDepthStencilView(g_pDepthStencilView,
+	ID3D11DeviceContext* DeviceContext = DXobj.GetContext();
+	DeviceContext->ClearRenderTargetView(DXobj.GetRenderTargetView(), ClearColor);
+	DeviceContext->ClearDepthStencilView(DXobj.GetDepthStencilView(),
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	// Zバッファ有効
@@ -539,6 +550,7 @@ void Draw(void)
 	DrawDebugProc();
 
 	// バックバッファとフロントバッファの入れ替え
+
 	g_pSwapChain->Present(g_uSyncInterval, 0);
 }
 
